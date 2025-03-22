@@ -3,15 +3,15 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import SpeedTyping from './components/speedTyping.jsx';
-
+import Context from './components/context.jsx';
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-      <div>
+      <Context>
         <SpeedTyping />
-      </div>
+      </Context>
     </>
   )
 }
