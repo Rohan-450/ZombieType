@@ -1,133 +1,192 @@
+:root {
+  --primary-color: #4a90e2;
+  --secondary-color: #7b68ee;
+  --background-color: #f4f7f6;
+  --text-color: #333;
+  --white: #ffffff;
+  --success-color: #0ba810;
+  --error-color: #f44336;
+  --transition-speed: 0.3s;
+}
 
-body{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Noto Sans Mono', monospace;
-    background-color: black;
-    
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: var(--background-color);
+  line-height: 1.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.typing-container {
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.typing-header {
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  color: var(--white);
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.typing-header h1 {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reset-button {
+  background-color: rgba(250, 19, 19, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color var(--transition-speed);
+}
+
+.reset-button:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.typing-content {
+  padding: 30px;
+  background-color: var(--white);
+}
+
+.time-progress {
+  margin-bottom: 20px;
+}
+
+.time-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  transition: width var(--transition-speed);
+}
+
+.typing-text {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  color: #0077ff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  min-height: 150px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.typing-text span {
+  transition: all var(--transition-speed);
+}
+
+.typing-text span.active {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.typing-text span.correct {
+  color: var(--success-color);
+}
+
+.typing-text span.incorrect {
+  color: var(--error-color);
+  background-color: #ffebee;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.stat-card {
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  transition: transform var(--transition-speed);
+}
+
+.stat-card:hover {
+  transform: scale(1.05);
+}
+
+.stat-icon {
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.typing-footer {
+  background-color: #8b9afc;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-badge {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.status-typing {
+  background-color: #e3f2fd;
+  color: var(--primary-color);
+}
+
+.status-complete {
+  background-color: #e8f5e9;
+  color: var(--success-color);
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .container {
-    max-width: 800px; /* Increased width */
-    margin: 20px; /* Added margin */
-    width: calc(100% - 40px); /* Adjusted width calculation */
-    padding: 40px; /* Increased padding */
-    border-radius: 15px; /* Increased border radius */
-    box-sizing: border-box;
-    border: 1px solid #ced4da;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+
+  .typing-header {
+    flex-direction: column;
+    gap: 10px;
   }
-  
-  input.input-field{
-    opacity: 0;
-    z-index: -999;
-    position: absolute;
+
+  .reset-button {
+    width: 100%;
   }
-  
-  #paragraph{
-    word-break: break-all;
-    text-align: left;
-  }
-  .section{
-    border: 1px solid #ced4da;
-    border-radius: 10px; /* Increased border radius */
-    padding: 30px; /* Increased padding */
-    padding-top: 10px; /* Adjusted padding-top */
-    background-color: #f9f9f9; /* Added background color */
-  }
-  .section1{
-    border-bottom: 1px solid #ced4da;
-    padding-bottom: 20px; /* Added padding-bottom */
-    margin-bottom: 20px; /* Added margin-bottom */
-  }
-  span{
-    font-size: 20px;
-    user-select: none;
-    cursor: tex;
-  }
-  span.wrong{
-    color: red;
-    background-color: pink;
-  }
-  
-  span.correct{
-    color: green;
-    background: #e7fbd3;
-  }
-  
-  span.active{
-    border-bottom: 3px solid #0a6bf9;
-  }
-  
-  .section2{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px; /* Increased margin-top */
-    color: black;
-    background-color: #f1f1f1; /* Added background color */
-    padding: 20px; /* Added padding */
-    border-radius: 10px; /* Added border radius */
-  }
-  .section2 ul{
-    padding-inline-start: 0px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0px;
-    width: calc(100% - 120px);
-  }
-  
-  .section2 ul li{
-    list-style-type: none;
-    margin: 0 10px;
-  }
-  
-  .section2 ul li p{
-    margin: 5px;
-    font-size: 12px;
-  }
-  
-  .section2 ul li span{
-    font-size: 18px;
-  }
-  
-  button.btn {
-    padding: 10px 20px;
-    outline: none;
-    border: 1px solid #ced4da;
-    margin: 5px;
-    border-radius: 4px;
-    cursor: pointer;
-    background: #1d9bf0;
-    color: #fff;
-    font-size: 16px;
-    transition: all 0.5s;
-  }
-  
-  button.btn:hover{
-    background-color: #1879ba;
-  }
-  
-  @media screen and (max-width : 550px){
-    .section2{
-        flex-direction: column;
-    }
-  
-    .section2 ul{
-        width: 100%;
-        justify-content: space-between;
-    }
-  
-    button.btn{
-        width: 100%;
-        margin-top: 10px;
-    }
-  }
-  
+}
