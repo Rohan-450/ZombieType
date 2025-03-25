@@ -1,34 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import SpeedTyping from './components/speedTyping.jsx';
-import Pop from './components/pop.jsx';
-import { Timeprovider } from './context/timeContext.js';
+// In App.jsx
+import { useState, useEffect } from 'react';
+import { Tutorial } from './components/Tutorial/Tutorial';
+import SpeedTyping from './components/speedTyping';
+import { Timeprovider } from './context/timeContext';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [gamePaused, setGamePaused] = useState(false);
+
+  // First visit check
+  useEffect(() => {
+    if (!localStorage.getItem('hasPlayedBefore')) {
+      setGamePaused(true);
+    }
+  }, []);
 
   return (
     <Timeprovider>
-      <div>
-        <SpeedTyping />
+      <div className="game-container">
+        {/* Help Button */}
+        <button 
+          className="help-icon"
+          onClick={() => setGamePaused(true)}
+          aria-label="Open tutorial"
+        >
+          ❔
+        </button>
+
+        {/* Main Game */}
+        <SpeedTyping paused={gamePaused} />
+
+        {/* Tutorial Overlay */}
+        {gamePaused && (
+          <Tutorial 
+            onClose={() => {
+              setGamePaused(false);
+              localStorage.setItem('hasPlayedBefore', 'true');
+            }}
+          />
+        )}
       </div>
     </Timeprovider>
-  )
-}
-
-export default App
-
-/*import './App.css';
-import speedTyping from './components/speedTyping';
-
-function App() {
-  return (
-    <div className="App">
-      <speedTyping />
-    </div>
   );
 }
 
-export default App;*/
+export default App;

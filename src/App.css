@@ -40,3 +40,74 @@
 .read-the-docs {
   color: #888;
 }
+.game-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Help Button */
+.help-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.help-icon:hover {
+  background: #fff;
+  transform: scale(1.1);
+}
+
+/* Tutorial Overlay */
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.tutorial-modal {
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 15px;
+  max-width: 500px;
+  color: white;
+  border: 2px solid #e74c3c;
+  animation: modalEnter 0.3s ease-out;
+}
+
+@keyframes modalEnter {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.tutorial-button {
+  background: #e74c3c;
+  border: none;
+  padding: 12px 30px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tutorial-button:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
