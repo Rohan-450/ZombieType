@@ -1,4 +1,4 @@
-// In App.jsx
+// Updated App.jsx
 import { useState, useEffect } from 'react';
 import { Tutorial } from './components/Tutorial/Tutorial';
 import SpeedTyping from './components/speedTyping';
@@ -7,6 +7,7 @@ import './App.css';
 
 function App() {
   const [gamePaused, setGamePaused] = useState(false);
+  const [showPauseMenu, setShowPauseMenu] = useState(false);
 
   // First visit check
   useEffect(() => {
@@ -15,9 +16,35 @@ function App() {
     }
   }, []);
 
+  // Keyboard pause handler
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Escape' && localStorage.getItem('hasPlayedBefore')) {
+        togglePause();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
+
+  const togglePause = () => {
+    setGamePaused(prev => !prev);
+    setShowPauseMenu(prev => !prev);
+  };
+
   return (
     <Timeprovider>
       <div className="game-container">
+        {/* Pause Control Button */}
+        <button 
+          className="pause-button"
+          onClick={togglePause}
+          aria-label={gamePaused ? "Resume game" : "Pause game"}
+        >
+          {gamePaused ? '▶' : '⏸'}
+        </button>
+
         {/* Help Button */}
         <button 
   className="help-button"
@@ -26,17 +53,19 @@ function App() {
 >
   <span role="img" aria-hidden="true">📖</span> Help
 </button>
-
         {/* Main Game */}
         <SpeedTyping paused={gamePaused} />
 
-        {/* Tutorial Overlay */}
+        {/* Tutorial/Pause Overlay */}
         {gamePaused && (
           <Tutorial 
+            isPauseMenu={showPauseMenu}
             onClose={() => {
               setGamePaused(false);
-              localStorage.setItem('hasPlayedBefore', 'true');
+              setShowPauseMenu(false);
+              if(!showPauseMenu) localStorage.setItem('hasPlayedBefore', 'true');
             }}
+            onRestart={() => window.location.reload()}
           />
         )}
       </div>

@@ -40,10 +40,40 @@
 .read-the-docs {
   color: #888;
 }
+.pause-button {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 45px;
+  height: 45px;
+  border: none;
+  border-radius: 50%;
+  background: #e74c3c;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+  transition: all 0.2s ease;
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pause-button:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}
+
+.pause-button:active {
+  transform: scale(0.95);
+}
+
 .game-container {
   position: relative;
   min-height: 100vh;
 }
+
 
 /* Help Button */
 .help-icon {
