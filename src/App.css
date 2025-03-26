@@ -111,3 +111,33 @@
   background: #c0392b;
   transform: translateY(-2px);
 }
+.help-button {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: #e74c3c;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.help-button:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.help-button:active {
+  transform: translateY(0);
+}

@@ -20,12 +20,12 @@ function App() {
       <div className="game-container">
         {/* Help Button */}
         <button 
-          className="help-icon"
-          onClick={() => setGamePaused(true)}
-          aria-label="Open tutorial"
-        >
-          ❔
-        </button>
+  className="help-button"
+  onClick={() => setGamePaused(true)}
+  aria-label="Open tutorial"
+>
+  <span role="img" aria-hidden="true">📖</span> Help
+</button>
 
         {/* Main Game */}
         <SpeedTyping paused={gamePaused} />
