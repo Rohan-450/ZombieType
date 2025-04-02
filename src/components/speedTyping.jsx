@@ -14,7 +14,7 @@ const SpeedTypingGame = () => {
     "A flower is the blossom of a plant and plays a crucial role in reproduction by producing seeds, which eventually grow into new plants. It serves as the reproductive system of a plant. Most flowers consist of four main parts: sepals, petals, stamens, and carpels. The carpel is the female part of the flower. The majority of flowers are hermaphrodites, meaning they contain both male and female reproductive structures. However, some flowers may have only one reproductive part and can be either male or female.",
     "An aunt is a bassoon from the right perspective. As far as we can estimate, some posit the melic Myanmar to be less than kutcha. One cannot separate foods from blowzy bows. The scampish closet reveals itself as a sclerous llama to those who look. A hip is the skirt of a peak. Some hempy laundries are thought of simply as orchids. A gum is a trumpet from the right perspective. A freebie flight is a wrench of the mind. Some posit the croupy.",
   ];
-  const { isOpen,time } = useTime();
+  const { isOpen, time } = useTime();
   const [typingText, setTypingText] = useState("");
   const [inpFieldValue, setInpFieldValue] = useState("");
   const maxTime = 60;
@@ -115,28 +115,35 @@ const SpeedTypingGame = () => {
 
   const resetGame = () => {
     setIsTyping(false);
-    setTimeLeft(maxTime);
+    setTimeLeft(time);
     setCharIndex(0);
     setMistakes(0);
     setTypingText("");
     setCPM(0);
     setWPM(0);
-    const characters = document.querySelectorAll(".char");
-    characters.forEach((span) => {
-      span.classList.remove("correct");
-      span.classList.remove("wrong");
-      span.classList.remove("active");
-    });
-    characters[0].classList.add("active");
-    loadParagraph();
+  
+    setTimeout(() => {
+      loadParagraph(); // Reload paragraph after resetting state
+  
+      setTimeout(() => { // Ensure paragraph has been loaded
+        const characters = document.querySelectorAll(".char");
+        if (characters.length > 0) { // Check if elements exist
+          characters.forEach((span) => {
+            span.classList.remove("correct", "wrong", "active");
+          });
+          characters[0].classList.add("active");
+        }
+      }, 10); // Slight delay to ensure elements are loaded
+    }, 0);
   };
+  
   useEffect(() => {
     setTimeLeft(time); // Update the timer only
-  
+
     if (isTyping) {
       // Reset the game only if typing was already in progress
       setIsTyping(false);
-      
+
       setTimeout(() => {
         resetGame(); // Reset safely without infinite loop
       }, 0);
@@ -149,32 +156,36 @@ const SpeedTypingGame = () => {
           characters[charIndex].classList.add("active");
         }
       }, 0);
-      
+
       if (inputRef.current) {
         inputRef.current.focus();
       }
     }
   }, [time]);
-  
+
   useEffect(() => {
     loadParagraph();
   }, []);
 
   useEffect(() => {
     let interval;
+
     if (isTyping && timeLeft > 0) {
       interval = setInterval(() => {
-        setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+        setTimeLeft((prevTimeLeft) => {
+          if (prevTimeLeft <= 1) {
+            clearInterval(interval);
+            setIsTyping(false);
+            return 0;
+          }
+          return prevTimeLeft - 1;
+        });
         setCPM(calculateCPM(charIndex, mistakes, timeLeft));
         setWPM(calculateWPM(charIndex, mistakes, timeLeft));
       }, 1000);
-    } else if (timeLeft === 0) {
-      clearInterval(interval);
-      setIsTyping(false);
     }
-    return () => {
-      clearInterval(interval);
-    };
+
+    return () => clearInterval(interval);
   }, [isTyping, timeLeft]);
 
   return (

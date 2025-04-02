@@ -50,8 +50,22 @@ input.input-field {
   border-bottom: 1px solid #ced4da;
   padding: 1.5rem; /* Added padding */
   margin-bottom: 20px; /* Added margin-bottom */
-  background: #f8f9fa;
+  text-align: center;
+
 }
+#time-over {
+  font-size: 3rem;  /* Make it big */
+  font-weight: bold; /* Make it bold */
+  color: red;        /* Make it red */
+  text-transform: uppercase; /* Make it uppercase */
+  animation: blink 1s infinite alternate; /* Add blinking effect */
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
 span {
   font-size: 1.1rem;
   line-height: 1.6;
